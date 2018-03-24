@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="style.css">
+  <title>BT TV - Device Manager</title>
+</head>
+<body>
+  <header class="flex">
+    <div class="branding flex">
+      <img src="images/bt-logo.png" alt="logo">
+      <span>BT TV</span>
+    </div>
+    <nav>
+      <span>Page 1</span>
+      <span>Page 2</span>
+      <span>Page 3</span>
+      <span>Sign in</span>
+    </nav>
+  </header>
+
+  <%= yield %>
+
+  <footer>
+    <span>&copy; 2018 BT TV. All rights reserved</span>
+  </footer>
+</body>
+</html>
