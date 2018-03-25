@@ -11,13 +11,14 @@ gem "sqlite3", "~> 1.3"
 group :development do
   gem "shotgun", "~> 0.9.2"
   gem "tux", "~> 0.3.0"
-  gem "pry", "~> 0.11.3"
 end
 
 group :test do
   gem "rspec", "~> 3.7"
   gem "capybara", "~> 2.18"
   gem "rack-test", "~> 0.6.3"
-  gem "pry", "~> 0.11.3"
   gem "database_cleaner", "~> 1.6"
+  gem "simplecov", "~> 0.16.1"
 end
+
+gem "pry", "~> 0.11.3", :group => [:development, :test]
