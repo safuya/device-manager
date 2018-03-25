@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180325061009) do
+ActiveRecord::Schema.define(version: 20180325070921) do
 
   create_table "devices", force: :cascade do |t|
     t.string "serial_number"
@@ -21,10 +21,10 @@ ActiveRecord::Schema.define(version: 20180325061009) do
   end
 
   create_table "devices_groups", id: false, force: :cascade do |t|
-    t.integer "devices_id"
-    t.integer "groups_id"
-    t.index ["devices_id"], name: "index_devices_groups_on_devices_id"
-    t.index ["groups_id"], name: "index_devices_groups_on_groups_id"
+    t.integer "device_id"
+    t.integer "group_id"
+    t.index ["device_id"], name: "index_devices_groups_on_device_id"
+    t.index ["group_id"], name: "index_devices_groups_on_group_id"
   end
 
   create_table "groups", force: :cascade do |t|

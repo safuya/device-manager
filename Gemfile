@@ -9,8 +9,9 @@ gem "bcrypt", "~> 3.1"
 gem "sqlite3", "~> 1.3"
 
 group :development do
-  gem "shotgun", "~> 0.9.2", :group => [:development]
-  gem "tux", "~> 0.3.0", :group => [:development]
+  gem "shotgun", "~> 0.9.2"
+  gem "tux", "~> 0.3.0"
+  gem "pry", "~> 0.11.3"
 end
 
 group :test do
@@ -18,4 +19,5 @@ group :test do
   gem "capybara", "~> 2.18"
   gem "rack-test", "~> 0.6.3"
   gem "pry", "~> 0.11.3"
+  gem "database_cleaner", "~> 1.6"
 end
