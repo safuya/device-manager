@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180324200514) do
+ActiveRecord::Schema.define(version: 20180325061009) do
 
   create_table "devices", force: :cascade do |t|
     t.string "serial_number"
     t.string "model"
     t.datetime "last_contact"
     t.datetime "last_activation"
+    t.string "firmware_version"
   end
 
   create_table "devices_groups", id: false, force: :cascade do |t|
