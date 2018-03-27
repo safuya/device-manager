@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'SessionController' do
-  describe 'Login'
+  describe 'Login' do
     it 'displays a login page if not logged in' do
       visit '/'
       expect(page.body).to include('Apply for Access')
