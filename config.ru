@@ -7,4 +7,5 @@ end
 use Rack::MethodOverride
 
 use DeviceController
+use SessionController
 run ApplicationController

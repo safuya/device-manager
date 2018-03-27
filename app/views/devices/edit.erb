@@ -1,0 +1,43 @@
+<section class="flex">
+<h1>Edit Device <%= @device.serial_number %></h1>
+
+<form action="/devices/<%= @device.id %>" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+
+    <p><label for="serial_number">Serial Number: </label>
+  <input type="text" name="device[serial_number]" id="serial_number"
+    value="<%= @device.serial_number %>"></p>
+
+  <p><label for="model">Model: </label>
+  <input type="text" name="device[model]" id="model"
+    value="<%= @device.model %>"></p>
+
+  <p>
+    <label for="last_contact">Last Contact: </label>
+    <input type="datetime-local" name="device[last_contact]" id="last_contact"
+      value="<%= @device.last_contact.to_s %>">
+  </p>
+
+  <p>
+    <label for="last_activation">Last Activation: </label>
+    <input type="datetime-local" name="device[last_activation]"
+      id="last_activation" value="<%= @device.last_activation.to_s %>">
+  </p>
+
+  <div><% @groups.each do |group| %>
+    <p>
+      <input type="checkbox" name="device[groups][]" id="group_<%= group.id %>"
+        value="<%= group.id %>" <%= 'checked' if @device.groups.include?(group) %>>
+      <label for="group_<%= group.id %>"><%= group.name %></label>
+    </p>
+  <% end %></div>
+
+  <input type="submit" value="Update Device">
+
+</form>
+
+<form action="/devices/<%= @device.id %>" method="post">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete Device">
+</form>
+</section>

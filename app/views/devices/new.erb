@@ -17,13 +17,13 @@
     <input type="datetime-local" name="device[last_activation]" id="last_activation">
   </p>
 
-  <div><% @groups.each do |group| %>
-    <p>
+  <ul class="list-unstyled"><% @groups.each do |group| %>
+    <li>
       <input type="checkbox" name="device[groups][]" id="group_<%= group.id %>"
         value="<%= group.id %>">
       <label for="group_<%= group.id %>"><%= group.name %></label>
-    </p>
-  <% end %></div>
+    </li>
+  <% end %></ul>
 
   <p><input type="submit" value="Add Device"></p>
 </form>

@@ -88,4 +88,32 @@ describe 'DeviceController' do
         .to eql('HH6A')
     end
   end
+
+  describe '/devices/:id/edit' do
+    before do
+      @hub = Device.create(serial_number: 'old serial number',
+                           model: 'HH6A',
+                           firmware_version: 'ABC123',
+                           last_contact: Time.now,
+                           last_activation: Time.now - 54_432_000)
+    end
+
+    it 'allows you to edit a device' do
+      visit "/devices/#{@hub.id}/edit"
+      expect(page.body).to include('hidden')
+      fill_in :serial_number, with: 'new serial number'
+      fill_in :model, with: 'HH6A'
+      fill_in :last_contact, with: '180203T11:24'
+      fill_in :last_activation, with: '160203T10:09'
+      click_button 'Update Device'
+      @hub.reload
+      expect(@hub.serial_number).to eql('new serial number')
+    end
+
+    it 'allows you to delete a device' do
+      visit "/devices/#{@hub.id}/edit"
+      click_button 'Delete Device'
+      expect(Device.find_by(serial_number: 'old serial number')).to eql(nil)
+    end
+  end
 end

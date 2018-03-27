@@ -1,15 +1,17 @@
 <h1>Devices</h1>
 
-<table>
-  <tr>
-    <th>Serial Number</th>
-    <th>Model</th>
-    <th>Firmware Version</th>
-    <th>Last Contact Time</th>
-    <th>Last Activation Time</th>
-  </tr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Serial Number</th>
+      <th scope="col">Model</th>
+      <th scope="col">Firmware Version</th>
+      <th scope="col">Last Contact Time</th>
+      <th scope="col">Last Activation Time</th>
+    </tr>
+  </thead>
   <% @devices.each do |device| %><tr>
-    <td><a href="/devices/<%= device.id %>"><%= device.serial_number %></a></td>
+    <td scope="row"><a href="/devices/<%= device.id %>"><%= device.serial_number %></a></td>
     <td><%= device.model %></td>
     <td><%= device.firmware_version %></td>
     <td><%= device.last_contact %></td>

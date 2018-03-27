@@ -20,4 +20,22 @@ class DeviceController < ApplicationController
     @groups = @device.groups
     erb :'devices/show'
   end
+
+  get '/devices/:id/edit' do
+    @device = Device.find(params[:id])
+    @groups = Group.all
+    erb :'devices/edit'
+  end
+
+  patch '/devices/:id' do
+    device = Device.find(params[:id])
+    device.update(params[:device])
+    redirect "/devices/#{device.id}"
+  end
+
+  delete '/devices/:id' do
+    device = Device.find(params[:id])
+    device.delete
+    redirect '/devices'
+  end
 end

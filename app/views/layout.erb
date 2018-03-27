@@ -4,28 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="reset.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
   <title>BT TV - Device Manager</title>
 </head>
-<body>
-  <header class="flex">
-    <div class="branding flex">
-      <img src="images/bt-logo.png" alt="logo">
-      <span>BT TV</span>
-    </div>
-    <nav>
-      <span>Page 1</span>
-      <span>Page 2</span>
-      <span>Page 3</span>
-      <span>Sign in</span>
-    </nav>
-  </header>
+<body class="text-center">
+  <div class="container">
 
-  <%= yield %>
+    <header class="row justify-content-between align-items-center"
+      style="background-color: #6400aa; height: 64px;">
+      <div class="col-4">
+        <img src="http://img01.bt.co.uk/s/assets/190218/images/logo/BT_mark_4col_rev_105x50.png" alt="logo">
+      </div>
+      <% if logged_in? %>
+      <nav class="nav col-4 navbar-dark justify-content-end">
+        <a href="/devices" class="nav-link text-light">Devices</a>
+        <a href="/groups" class="nav-link text-light">Groups</a>
+        <a href="/users" class="nav-link text-light">Users</a>
+        <a href="/signout" class="nav-link text-light">Sign Out</a>
+      </nav>
+      <% else %>
+      <nav class="nav col-3 navbar-dark justify-content-end">
+        <a href="/apply" class="nav-link text-light">Apply for Access</a>
+      </nav>
+      <% end %>
+    </header>
 
-  <footer>
-    <span>&copy; 2018 BT TV. All rights reserved</span>
-  </footer>
+    <%= yield %>
+
+    <footer>
+      <span class="text-muted">&copy; 2018 BT TV. All rights reserved</span>
+    </footer>
+
+  </div>
 </body>
 </html>
