@@ -1,0 +1,11 @@
+<h1> View Device <%= @device.serial_number %></h1>
+
+<p><span>Model:</span> <%= @device.model %></p>
+<p><span>Firmware Version:</span> <%= @device.firmware_version %></p>
+<p><span>Last Contact:</span> <%= @device.last_contact %></p>
+<p><span>Last Activation:</span> <%= @device.last_activation %></p>
+
+<h2>Groups</h2>
+<ul><% @groups.each do |group| %>
+  <li><a href="/groups/<%= group.id %>"><%= group.name %></a></li>
+<% end %></ul>

@@ -1,0 +1,29 @@
+<h1>Add a Device</h1>
+
+<form action="/devices" method="post">
+  <p><label for="serial_number">Serial Number: </label>
+  <input type="text" name="device[serial_number]" id="serial_number"></p>
+
+  <p><label for="model">Model: </label>
+  <input type="text" name="device[model]" id="model"></p>
+
+  <p>
+    <label for="last_contact">Last Contact: </label>
+    <input type="datetime-local" name="device[last_contact]" id="last_contact">
+  </p>
+
+  <p>
+    <label for="last_activation">Last Activation: </label>
+    <input type="datetime-local" name="device[last_activation]" id="last_activation">
+  </p>
+
+  <div><% @groups.each do |group| %>
+    <p>
+      <input type="checkbox" name="device[groups][]" id="group_<%= group.id %>"
+        value="<%= group.id %>">
+      <label for="group_<%= group.id %>"><%= group.name %></label>
+    </p>
+  <% end %></div>
+
+  <p><input type="submit" value="Add Device"></p>
+</form>
