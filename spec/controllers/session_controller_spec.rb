@@ -31,4 +31,19 @@ describe 'SessionController' do
       expect(page.body).to include('Sign In')
     end
   end
+
+  describe 'Sign Out' do
+    it 'signs users out' do
+      User.create(username: 'rob',
+                  password: 'P@ssword',
+                  email: '1@2.co',
+                  name: 'rob')
+      visit '/'
+      fill_in :username, with: 'rob'
+      fill_in :password, with: 'P@ssword'
+      click_button 'Sign In'
+      click_link 'Sign Out'
+      expect(page.body).to include('Apply for Access')
+    end
+  end
 end

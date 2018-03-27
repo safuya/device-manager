@@ -9,4 +9,9 @@ class SessionController < ApplicationController
     session[:user_id] = user.id if user && user.authenticate(params[:password])
     redirect '/'
   end
+
+  get '/signout' do
+    session.clear
+    redirect '/'
+  end
 end
