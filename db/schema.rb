@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180325070921) do
+ActiveRecord::Schema.define(version: 20180325121807) do
 
   create_table "devices", force: :cascade do |t|
     t.string "serial_number"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20180325070921) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
-    t.string "type"
+    t.string "privilege"
   end
 
   create_table "users", force: :cascade do |t|

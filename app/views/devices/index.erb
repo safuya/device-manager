@@ -1,0 +1,18 @@
+<h1>Devices</h1>
+
+<table>
+  <tr>
+    <th>Serial Number</th>
+    <th>Model</th>
+    <th>Firmware Version</th>
+    <th>Last Contact Time</th>
+    <th>Last Activation Time</th>
+  </tr>
+  <% @devices.each do |device| %><tr>
+    <td><a href="/devices/<%= device.id %>"><%= device.serial_number %></a></td>
+    <td><%= device.model %></td>
+    <td><%= device.firmware_version %></td>
+    <td><%= device.last_contact %></td>
+    <td><%= device.last_activation %></td>
+  </tr><% end %>
+</table>
