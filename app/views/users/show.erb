@@ -1,0 +1,40 @@
+<section class="row">
+
+  <div class="col-8">
+  <h1>User</h1>
+    <ul class="list-group d-flex justify-content-between mb-3">
+      <li class="list-group-item lh-condensed">
+        <div><h5>Username</h5></div>
+        <span><%= @user.username %></span>
+      </li>
+      <li class="list-group-item lh-condensed">
+        <div><h5>Name</h5></div>
+        <span><%= @user.name %></span>
+      </li>
+      <li class="list-group-item lh-condensed">
+        <div><h5>Email</h5></div>
+        <span><%= @user.email %></span>
+      </li>
+
+      <li class="list-group-item lh-condensed">
+        <div><h5>Group</h5></div>
+        <span><%= @user.group %></span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-5 align-self-center">
+    <div>
+      <a class="btn btn-primary btn-block text-light" id="edit"
+        href="/users/<%= @user.id %>/edit">Edit</a>
+    </div>
+    <div>
+      <form action="/users/<%= @user.id %>" method="post">
+        <input id="hidden" type="hidden" name="_method" value="delete">
+        <button type="submit" class="btn btn-danger btn-block">Delete</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+</section>
