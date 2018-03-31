@@ -22,13 +22,13 @@
 
     <div class="row mb-3">
       <div class="col-6">
-        <label for="last_contact">Last Contact: </label>
+        <label for="last_contact">Last Contact</label>
         <input type="datetime-local" name="device[last_contact]" id="last_contact"
           value="<%= @device.last_contact.to_s %>">
       </div>
 
       <div class="col-6">
-        <label for="last_activation">Last Activation: </label>
+        <label for="last_activation">Last Activation</label>
         <input type="datetime-local" name="device[last_activation]"
           id="last_activation" value="<%= @device.last_activation.to_s %>">
       </div>

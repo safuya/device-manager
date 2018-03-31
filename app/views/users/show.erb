@@ -1,6 +1,6 @@
-<section class="row">
+<section class="row justify-content-center">
 
-  <div class="col-8">
+  <div class="col-9">
   <h1>User</h1>
     <ul class="list-group d-flex justify-content-between mb-3">
       <li class="list-group-item lh-condensed">
@@ -23,17 +23,15 @@
     </ul>
   </div>
 
-  <div class="col-5 align-self-center">
-    <div>
-      <a class="btn btn-primary btn-block text-light" id="edit"
-        href="/users/<%= @user.id %>/edit">Edit</a>
-    </div>
-    <div>
-      <form action="/users/<%= @user.id %>" method="post">
-        <input id="hidden" type="hidden" name="_method" value="delete">
-        <button type="submit" class="btn btn-danger btn-block">Delete</button>
-      </form>
-    </div>
+  <div class="mb-1 col-4">
+    <a class="btn btn-primary btn-block text-light" id="edit"
+      href="/users/<%= @user.id %>/edit">Edit</a>
+  </div>
+  <div class="mb-1 col-4">
+    <form action="/users/<%= @user.id %>" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <button type="submit" class="btn btn-danger btn-block">Delete</button>
+    </form>
   </div>
 
 </div>
