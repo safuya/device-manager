@@ -117,15 +117,33 @@ describe 'DeviceController' do
       fill_in :model, with: 'HH6A'
       fill_in :last_contact, with: '180203T11:24'
       fill_in :last_activation, with: '160203T10:09'
-      click_button 'Update Device'
+      click_button 'Update'
       @hub.reload
       expect(@hub.serial_number).to eql('new serial number')
     end
 
     it 'allows you to delete a device' do
       visit "/devices/#{@hub.id}/edit"
-      click_button 'Delete Device'
-      expect(Device.find_by(serial_number: 'old serial number')).to eql(nil)
+      expect(page.body).to include('onClick="delete_device()"')
+    end
+
+    it 'allows you to add a group' do
+      group = Group.create(name: 'a', privilege: 'b')
+      visit "/devices/#{@hub.id}/edit"
+      check "group_#{group.id}"
+      click_button 'Update'
+      @hub.reload
+      expect(@hub.groups).to include(group)
+    end
+
+    it 'allows you to remove a group' do
+      group = Group.create(name: 'a', privilege: 'b')
+      @hub.groups = [group]
+      visit "/devices/#{@hub.id}/edit"
+      uncheck "group_#{group.id}"
+      click_button 'Update'
+      @hub.reload
+      expect(@hub.groups).to include(group)
     end
   end
 end

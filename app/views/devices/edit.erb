@@ -1,43 +1,71 @@
-<section class="flex">
-<h1>Edit Device <%= @device.serial_number %></h1>
+<section class="row">
 
-<form action="/devices/<%= @device.id %>" method="post">
-  <input id="hidden" type="hidden" name="_method" value="patch">
+  <div class="col-8">
+  <h1>Edit</h1>
 
-    <p><label for="serial_number">Serial Number: </label>
-  <input type="text" name="device[serial_number]" id="serial_number"
-    value="<%= @device.serial_number %>"></p>
+  <form action="/devices/<%= @device.id %>" method="post" id="form">
+    <input id="hidden" type="hidden" name="_method" value="patch">
 
-  <p><label for="model">Model: </label>
-  <input type="text" name="device[model]" id="model"
-    value="<%= @device.model %>"></p>
+    <div class="row mb-3">
+      <div class="col-6">
+        <label for="serial_number">Serial Number</label>
+        <input type="text" name="device[serial_number]" id="serial_number"
+          value="<%= @device.serial_number %>" class="form-control">
+      </div>
 
-  <p>
-    <label for="last_contact">Last Contact: </label>
-    <input type="datetime-local" name="device[last_contact]" id="last_contact"
-      value="<%= @device.last_contact.to_s %>">
-  </p>
+      <div class="col-6">
+        <label for="model">Model</label>
+        <input type="text" name="device[model]" id="model"
+          value="<%= @device.model %>" class="form-control">
+      </div>
+    </div>
 
-  <p>
-    <label for="last_activation">Last Activation: </label>
-    <input type="datetime-local" name="device[last_activation]"
-      id="last_activation" value="<%= @device.last_activation.to_s %>">
-  </p>
+    <div class="row mb-3">
+      <div class="col-6">
+        <label for="last_contact">Last Contact: </label>
+        <input type="datetime-local" name="device[last_contact]" id="last_contact"
+          value="<%= @device.last_contact.to_s %>">
+      </div>
 
-  <div><% @groups.each do |group| %>
-    <p>
-      <input type="checkbox" name="device[groups][]" id="group_<%= group.id %>"
-        value="<%= group.id %>" <%= 'checked' if @device.groups.include?(group) %>>
-      <label for="group_<%= group.id %>"><%= group.name %></label>
-    </p>
-  <% end %></div>
+      <div class="col-6">
+        <label for="last_activation">Last Activation: </label>
+        <input type="datetime-local" name="device[last_activation]"
+          id="last_activation" value="<%= @device.last_activation.to_s %>">
+      </div>
+    </div>
 
-  <input type="submit" value="Update Device">
+    <h4>Groups</h4>
+    <ul class="list-group d-flex justify-content-between mb-3">
+    <% @groups.each do |group| %>
+      <li class="list-group-item lh-condensed">
+        <input type="checkbox" name="device[group_ids][]" id="group_<%= group.id %>"
+          value="<%= group.id %>" <%= 'checked' if @device.groups.include?(group) %>>
+        <label for="group_<%= group.id %>"><%= group.name %></label>
+      </li>
+    <% end %></ul>
 
-</form>
+    <div class="row">
+      <div class="col-6">
+        <button type="submit" class="btn btn-primary btn-block" id="update">
+          Update
+        </button>
+      </div>
 
-<form action="/devices/<%= @device.id %>" method="post">
-  <input id="hidden" type="hidden" name="_method" value="delete">
-  <input type="submit" value="Delete Device">
-</form>
+      <div class="col-6">
+        <button onClick="delete_device()" class="btn btn-primary btn-block"
+          id="delete">
+          Delete
+        </button>
+      </div>
+    </div>
+
+  </form>
+
 </section>
+
+<script>
+function delete_device() {
+  document.getElementById("hidden").value = "delete"
+  document.getElementById("form").submit()
+}
+</script>
