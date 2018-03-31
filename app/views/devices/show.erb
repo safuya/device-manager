@@ -4,6 +4,10 @@
   <h1>Device</h1>
     <ul class="list-group d-flex justify-content-between mb-3">
       <li class="list-group-item lh-condensed">
+        <div><h5>Serial Number</h5></div>
+        <span><%= @device.serial_number %></span>
+      </li>
+      <li class="list-group-item lh-condensed">
         <div><h5>Model</h5></div>
         <span><%= @device.model %></span>
       </li>
@@ -34,7 +38,8 @@
   <hr class="mb-4">
 
   <div class="col-4">
-    <a class="btn btn-primary btn-block text-light">Edit</a>
+    <a class="btn btn-primary btn-block text-light" id="edit"
+      href="/devices/<%= @device.id %>/edit">Edit</a>
   </div>
   <div class="col-4">
     <form action="/devices/<%= @device.id %>" method="post">

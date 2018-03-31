@@ -41,9 +41,8 @@ describe 'DeviceController' do
       @hub.save
     end
 
-    it 'allows you to view an individual Hub' do
+    it 'allows you to view an individual device' do
       visit "/devices/#{@hub.id}"
-      expect(page.body).to include("/devices/#{@hub.id}/edit")
       expect(page.body).to include(@hub.serial_number)
       expect(page.body).to include(@hub.model)
       expect(page.body).to include(@hub.firmware_version)
@@ -57,6 +56,18 @@ describe 'DeviceController' do
     it 'links to the groups' do
       visit "/devices/#{@hub.id}"
       expect(page.body).to include("href=\"/groups/#{@admin.id}\"")
+    end
+
+    it 'allows you to edit the device' do
+      visit "/devices/#{@hub.id}"
+      click_link 'edit'
+      expect(page.status_code).to eql(200)
+    end
+
+    it 'allows you to delete the device' do
+      visit "/devices/#{@hub.id}"
+      click_button 'Delete'
+      expect(Device.find_by(id: @hub.id)).to eql(nil)
     end
   end
 
