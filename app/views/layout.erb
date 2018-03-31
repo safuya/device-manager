@@ -15,9 +15,7 @@
 
     <header class="row justify-content-between align-items-center"
       style="background-color: #6400aa; height: 64px;">
-      <div class="col-4">
-        <img src="http://img01.bt.co.uk/s/assets/190218/images/logo/BT_mark_4col_rev_105x50.png" alt="logo">
-      </div>
+      <div class="col-4"><img src="/logo.png" alt="logo"></div>
       <% if logged_in? %>
       <nav class="nav col-4 navbar-dark justify-content-end">
         <a href="/devices" class="nav-link text-light">Devices</a>
@@ -34,7 +32,8 @@
 
     <%= yield %>
 
-    <footer>
+    <footer class="mb-2">
+      <hr class="mb-2">
       <span class="text-muted">&copy; 2018 BT TV. All rights reserved</span>
     </footer>
 

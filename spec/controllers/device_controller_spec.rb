@@ -43,6 +43,7 @@ describe 'DeviceController' do
 
     it 'allows you to view an individual Hub' do
       visit "/devices/#{@hub.id}"
+      expect(page.body).to include("/devices/#{@hub.id}/edit")
       expect(page.body).to include(@hub.serial_number)
       expect(page.body).to include(@hub.model)
       expect(page.body).to include(@hub.firmware_version)

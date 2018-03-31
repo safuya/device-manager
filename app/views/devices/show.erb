@@ -1,11 +1,47 @@
-<h1> View Device <%= @device.serial_number %></h1>
+<section class="row">
 
-<p><span>Model:</span> <%= @device.model %></p>
-<p><span>Firmware Version:</span> <%= @device.firmware_version %></p>
-<p><span>Last Contact:</span> <%= @device.last_contact %></p>
-<p><span>Last Activation:</span> <%= @device.last_activation %></p>
+  <div class="col-8">
+  <h1>Device</h1>
+    <ul class="list-group d-flex justify-content-between mb-3">
+      <li class="list-group-item lh-condensed">
+        <div><h5>Model</h5></div>
+        <span><%= @device.model %></span>
+      </li>
+      <li class="list-group-item lh-condensed">
+        <div><h5>Firmware Version</h5></div>
+        <span><%= @device.firmware_version %></span>
+      </li>
+      <li class="list-group-item lh-condensed">
+        <div><h5>Last Contact</h5></div>
+        <span><%= @device.last_contact %></span>
+      </li>
+      <li class="list-group-item lh-condensed">
+        <div><h5>Last Activation</h5></div>
+        <span><%= @device.last_activation %></span>
+      </li>
+    </ul>
+  </div>
 
-<h2>Groups</h2>
-<ul><% @groups.each do |group| %>
-  <li><a href="/groups/<%= group.id %>"><%= group.name %></a></li>
-<% end %></ul>
+  <div class="col-4 mt-5">
+    <h4>Groups</h4>
+    <ul class="list-group"><% @groups.each do |group| %>
+      <li class="list-group-item">
+        <a href="/groups/<%= group.id %>"><%= group.name %></a>
+      </li>
+    <% end %></ul>
+  </div>
+
+  <hr class="mb-4">
+
+  <div class="col-4">
+    <a class="btn btn-primary btn-block text-light">Edit</a>
+  </div>
+  <div class="col-4">
+    <form action="/devices/<%= @device.id %>" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <button type="submit" class="btn btn-danger btn-block">Delete</button>
+    </form>
+  </div>
+
+</div>
+</section>
