@@ -46,4 +46,27 @@ describe 'SessionController' do
       expect(page.body).to include('Apply for Access')
     end
   end
+
+  describe 'Apply' do
+    it 'shows the apply page' do
+      visit '/apply'
+      expect(page.body).to include('Username')
+      expect(page.body).to include('Name')
+      expect(page.body).to include('Email')
+      expect(page.body).to include('Password')
+      expect(page.body).to include('Apply')
+    end
+
+    it 'adds the user without a group' do
+      visit '/apply'
+      fill_in :username, with: 'newbie'
+      fill_in :name, with: 'Jim'
+      fill_in :email, with: 'jim@jim.com'
+      fill_in :password, with: 'S@cur3pass'
+      click_button 'Apply'
+      jim = User.find_by(username: 'newbie')
+      expect(jim.name).to eql('Jim')
+      expect(jim.group).to eql(nil)
+    end
+  end
 end

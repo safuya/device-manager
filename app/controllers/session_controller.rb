@@ -14,4 +14,14 @@ class SessionController < ApplicationController
     session.clear
     redirect '/'
   end
+
+  get '/apply' do
+    erb :'sessions/apply'
+  end
+
+  post '/apply' do
+    user = User.create(params[:user])
+    session[:user_id] = user.id
+    redirect '/'
+  end
 end
