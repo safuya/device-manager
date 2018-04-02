@@ -6,6 +6,7 @@ end
 
 use Rack::MethodOverride
 
+use GroupController
 use UserController
 use DeviceController
 use SessionController
