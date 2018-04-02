@@ -1,1 +1,76 @@
-Edit
+<section class="row justify-content-center">
+
+  <div class="col-8">
+  <h1>Edit</h1>
+
+  <form action="/groups/<%= @group.id %>" method="post" id="form">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+
+    <div class="row mb-3">
+      <div class="col-6">
+        <label for="Name">Group Name</label>
+        <input type="text" name="group[name]" id="name"
+          value="<%= @group.name %>" class="form-control">
+      </div>
+
+      <div class="col-6">
+        <label for="model">Group Privilege</label>
+        <input type="text" name="group[privilege]" id="privilege"
+          value="<%= @group.privilege %>" class="form-control">
+      </div>
+    </div> <!-- row -->
+
+    <div class="row mb-3">
+      <div class="col-6">
+        <h4>Users</h4>
+        <ul class="list-group d-flex justify-content-between mb-3">
+        <% @users.each do |user| %>
+          <li class="list-group-item lh-condensed">
+            <input type="checkbox" name="group[user_ids][]" id="user_<%= user.id %>"
+              value="<%= user.id %>" <%= 'checked' if @group.users.include?(user) %>>
+            <label for="user_<%= user.id %>"><%= user.name %></label>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+
+      <div class="col-6">
+        <h4>Devices</h4>
+        <ul class="list-group d-flex justify-content-between mb-3">
+        <% @devices.each do |device| %>
+          <li class="list-group-item lh-condensed">
+            <input type="checkbox" name="group[device_ids][]" id="device_<%= device.id %>"
+              value="<%= device.id %>" <%= 'checked' if @group.devices.include?(device) %>>
+            <label for="device_<%= device.id %>"><%= device.serial_number %></label>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+    </div> <!-- row -->
+
+    <div class="row">
+      <div class="col-6">
+        <button type="submit" class="btn btn-primary btn-block" id="update">
+          Update
+        </button>
+      </div>
+
+      <div class="col-6">
+        <button onClick="delete_device()" class="btn btn-danger btn-block"
+          id="delete">
+          Delete
+        </button>
+      </div>
+    </div> <!-- row -->
+
+  </form>
+  </div>
+
+</section>
+
+<script>
+function delete_device() {
+  document.getElementById("hidden").value = "delete"
+  document.getElementById("form").submit()
+}
+</script>

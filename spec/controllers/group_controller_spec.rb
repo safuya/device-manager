@@ -67,4 +67,39 @@ describe 'GroupController' do
       expect(Group.find_by(name: 'admin')).to eql(nil)
     end
   end
+
+  describe '/groups/:id/edit' do
+    before do
+      @admin = Group.create(name: 'admin', privilege: 'admin')
+      @hub = Device.create(serial_number: '123',
+                           model: 'HH6A',
+                           groups: [@admin])
+      @stb = Device.create(serial_number: '321',
+                           model: 'TLA',
+                           groups: [@admin])
+      @andy = User.create(name: 'Andy',
+                          username: 'andy',
+                          email: 'andy@admin.com',
+                          password: 'i@f0ub#zFJbb*XFV0ANn',
+                          group_id: @admin.id)
+      @richy = User.create(name: 'Richy',
+                           username: 'rich',
+                           email: 'rich@write.com',
+                           password: 'Fug7tuff!e',
+                           group_id: @admin.id)
+    end
+
+    it 'lets you edit a group' do
+      visit "/groups/#{@admin.id}/edit"
+      fill_in :name, with: 'administrator'
+      fill_in :privilege, with: 'admin'
+      uncheck "user_#{@richy.id}"
+      uncheck "device_#{@stb.id}"
+      click_button 'Update'
+      @admin.reload
+      expect(@admin.name).to eql('administrator')
+      expect(@admin.devices.size).to eql(1)
+      expect(@admin.users.size).to eql(1)
+    end
+  end
 end
