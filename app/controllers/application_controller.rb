@@ -10,11 +10,19 @@ class ApplicationController < Sinatra::Base
 
   helpers do
     def stop_non_admins
-      halt erb :'errors/401' unless admin?
+      unauthorized unless admin?
     end
 
-    def stop_unapproved
-      halt erb :'errors/401' unless approved?
+    def only_current_user_or_admin
+      unauthorized unless current_user? || admin?
+    end
+
+    def only_current_user
+      unauthorized unless current_user?
+    end
+
+    def unauthorized
+      halt erb :'errors/401'
     end
 
     def current_user
@@ -29,8 +37,8 @@ class ApplicationController < Sinatra::Base
       logged_in? && current_user.group.privilege == 'admin'
     end
 
-    def approved?
-      logged_in? && !current_user.group_id.blank?
+    def current_user?
+      logged_in? && current_user.id == params[:id].to_i
     end
   end
 end
