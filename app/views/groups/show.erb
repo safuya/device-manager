@@ -1,1 +1,51 @@
-Show
+<section class="row">
+
+  <div class="col-4">
+  <h1>Group</h1>
+    <ul class="list-group d-flex justify-content-between mb-3">
+      <li class="list-group-item lh-condensed">
+        <div><h5>Name</h5></div>
+        <span><%= @group.name %></span>
+      </li>
+      <li class="list-group-item lh-condensed">
+        <div><h5>Privilege</h5></div>
+        <span><%= @group.privilege %></span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-4 mt-5">
+    <h4>Users</h4>
+    <ul class="list-group"><% @users.each do |user| %>
+      <li class="list-group-item">
+        <a href="/users/<%= user.id %>"><%= user.name %></a>
+      </li>
+    <% end %></ul>
+  </div>
+
+  <div class="col-4 mt-5">
+    <h4>Devices</h4>
+    <ul class="list-group"><% @devices.each do |device| %>
+      <li class="list-group-item">
+        <a href="/devices/<%= device.id %>"><%= device.serial_number %></a>
+      </li>
+    <% end %></ul>
+  </div>
+
+  <hr class="mb-4">
+
+  <div class="col-2">
+    <a class="btn btn-primary btn-block text-light" id="edit"
+      href="/groups/<%= @group.id %>/edit">Edit</a>
+  </div>
+  <div class="col-2">
+    <form action="/groups/<%= @group.id %>" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <button type="submit" class="btn btn-danger btn-block" id='delete'>
+        Delete
+      </button>
+    </form>
+  </div>
+
+</div>
+</section>
