@@ -102,4 +102,34 @@ describe 'GroupController' do
       expect(@admin.users.size).to eql(1)
     end
   end
+
+  describe '/groups/new' do
+    before do
+      @hub = Device.create(serial_number: '123',
+                           model: 'HH6A')
+      @stb = Device.create(serial_number: '321',
+                           model: 'TLA')
+      @andy = User.create(name: 'Andy',
+                          username: 'andy',
+                          email: 'andy@admin.com',
+                          password: 'i@f0ub#zFJbb*XFV0ANn')
+      @richy = User.create(name: 'Richy',
+                           username: 'rich',
+                           email: 'rich@write.com',
+                           password: 'Fug7tuff!e')
+    end
+
+    it 'creates a new device' do
+      visit '/groups/new'
+      fill_in :name, with: 'administrator'
+      fill_in :privilege, with: 'admin'
+      check "device_#{@hub.id}"
+      check "user_#{@andy.id}"
+      click_button 'create'
+      admin = Group.find_by(name: 'administrator', privilege: 'admin')
+      expect(admin.name).to eql('administrator')
+      expect(admin.users).to include(@andy)
+      expect(admin.devices).to include(@hub)
+    end
+  end
 end
