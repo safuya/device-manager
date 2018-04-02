@@ -1,4 +1,4 @@
-<section class="row">
+<section class="row justify-content-center">
 
   <div class="col-8">
   <h1>Edit</h1>
@@ -20,17 +20,31 @@
       </div>
     </div>
 
-    <div class="col-12">
-      <label for="email">Email</label>
-      <input type="email" name="user[email]" id="email"
-        value="<%= @user.email %>">
+    <div class="row mb-3">
+      <div class="col-12">
+        <label for="email">Email</label>
+        <input type="email" name="user[email]" id="email" class="form-control"
+          value="<%= @user.email %>">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-6">
+        <label for="password">Current Password</label>
+        <input type="password" name="current_password" id="current_password"
+          class="form-control">
+      </div>
+      <div class="col-6">
+        <label for="user[password]">New Password</label>
+        <input type="password" name="user[password]" id="new_password"
+          class="form-control">
+      </div>
     </div>
 
     <h4>Group</h4>
     <ul class="list-group d-flex justify-content-between mb-3">
     <% @groups.each do |group| %>
       <li class="list-group-item lh-condensed">
-        <input type="radio" name="device[group_ids][]" id="group_<%= group.id %>"
+        <input type="radio" name="user[group_id]" id="group_<%= group.id %>"
           value="<%= group.id %>" <%= 'checked' if @user.group == group %>>
         <label for="group_<%= group.id %>"><%= group.name %></label>
       </li>
@@ -44,7 +58,7 @@
       </div>
 
       <div class="col-6">
-        <button onClick="delete_device()" class="btn btn-primary btn-block"
+        <button onClick="delete_device()" class="btn btn-danger btn-block"
           id="delete">
           Delete
         </button>

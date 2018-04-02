@@ -18,7 +18,7 @@
 
       <li class="list-group-item lh-condensed">
         <div><h5>Group</h5></div>
-        <span><%= @user.group %></span>
+        <span><%= @user.group.name if @user.group %></span>
       </li>
     </ul>
   </div>
@@ -30,7 +30,9 @@
   <div class="mb-1 col-4">
     <form action="/users/<%= @user.id %>" method="post">
       <input id="hidden" type="hidden" name="_method" value="delete">
-      <button type="submit" class="btn btn-danger btn-block">Delete</button>
+      <button type="submit" class="btn btn-danger btn-block" id="delete">
+        Delete
+      </button>
     </form>
   </div>
 

@@ -22,6 +22,14 @@
 
     <div class="row mb-3">
       <div class="col-6">
+        <label for="firmware_version">Firmware Version</label>
+        <input type="text" name="device[firmware_version]" id="firmware_version"
+          class="form-control">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-6">
         <label for="last_contact">Last Contact</label>
         <input type="datetime-local" name="device[last_contact]" id="last_contact"
           value="<%= @device.last_contact.to_s %>">

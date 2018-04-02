@@ -11,13 +11,21 @@ class UserController < ApplicationController
 
   patch '/users/:id' do
     user = User.find(params[:id])
-    user.update(params[:user])
-    redirect "/user/#{user.id}"
+    if user && user.authenticate(params[:current_password])
+      user.update(params[:user])
+    end
+    redirect "/users/#{user.id}"
   end
 
   get '/users/:id/edit' do
     @user = User.find(params[:id])
     @groups = Group.all
     erb :'users/edit'
+  end
+
+  delete '/users/:id' do
+    user = User.find(params[:id])
+    user.delete
+    redirect '/users'
   end
 end
