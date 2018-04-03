@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   get '/users' do
-    stop_non_admins
+    only_admins
     @users = User.all
     erb :'users/index'
   end

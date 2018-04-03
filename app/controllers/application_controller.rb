@@ -9,7 +9,7 @@ class ApplicationController < Sinatra::Base
   end
 
   helpers do
-    def stop_non_admins
+    def only_admins
       unauthorized unless admin?
     end
 
@@ -19,6 +19,10 @@ class ApplicationController < Sinatra::Base
 
     def only_current_user
       unauthorized unless current_user?
+    end
+
+    def only_approved
+      unauthorized unless approved?
     end
 
     def unauthorized
@@ -39,6 +43,10 @@ class ApplicationController < Sinatra::Base
 
     def current_user?
       logged_in? && current_user.id == params[:id].to_i
+    end
+
+    def approved?
+      logged_in? && !current_user.group.blank?
     end
   end
 end

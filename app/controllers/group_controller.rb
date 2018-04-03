@@ -1,19 +1,19 @@
 class GroupController < ApplicationController
   get '/groups' do
-    stop_non_admins
+    only_admins
     @groups = Group.all
     erb :'groups/index'
   end
 
   get '/groups/new' do
-    stop_non_admins
+    only_admins
     @users = User.all
     @devices = Device.all
     erb :'groups/new'
   end
 
   post '/groups' do
-    stop_non_admins
+    only_admins
     group = Group.new(params[:group])
     group.device_ids = params[:device_ids]
     group.save
@@ -26,7 +26,7 @@ class GroupController < ApplicationController
   end
 
   get '/groups/:id' do
-    stop_non_admins
+    only_admins
     @group = Group.find(params[:id])
     @users = @group.users
     @devices = @group.devices
@@ -34,7 +34,7 @@ class GroupController < ApplicationController
   end
 
   get '/groups/:id/edit' do
-    stop_non_admins
+    only_admins
     @group = Group.find(params[:id])
     @users = User.all
     @devices = Device.all
@@ -42,14 +42,14 @@ class GroupController < ApplicationController
   end
 
   patch '/groups/:id' do
-    stop_non_admins
+    only_admins
     group = Group.find(params[:id])
     group.update(params[:group])
     redirect "/groups/#{group.id}"
   end
 
   delete '/groups/:id' do
-    stop_non_admins
+    only_admins
     group = Group.find(params[:id])
     group.delete
     redirect '/groups'

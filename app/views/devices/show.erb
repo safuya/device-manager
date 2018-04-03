@@ -26,6 +26,7 @@
     </ul>
   </div>
 
+  <% if admin? %>
   <div class="col-4 mt-5">
     <h4>Groups</h4>
     <ul class="list-group"><% @groups.each do |group| %>
@@ -47,6 +48,7 @@
       <button type="submit" class="btn btn-danger btn-block">Delete</button>
     </form>
   </div>
+  <% end %>
 
 </div>
 </section>
