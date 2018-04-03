@@ -5,6 +5,20 @@ class UserController < ApplicationController
     erb :'users/index'
   end
 
+  get '/users/approval' do
+    only_admins
+    @approvals = User.where(group_id: nil)
+    @groups = Group.all
+    erb :'users/approval'
+  end
+
+  patch '/users/approval' do
+    user = User.find(params[:user])
+    user.group_id = params[:group]
+    user.save(validate: false)
+    redirect '/users/approval'
+  end
+
   get '/users/:id' do
     only_current_user_or_admin
     @user = User.find(params[:id])

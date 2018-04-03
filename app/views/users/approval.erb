@@ -1,0 +1,42 @@
+<h1>Approvals</h1>
+
+<% if @approvals.empty? %>
+  No-one is awaiting approval
+<% else %>
+  <% @approvals.each do |approval| %>
+    <p><%= approval.name %> - <%= approval.username %> - <%= approval.email %></p>
+    <form action="/users/approval" method="post">
+      <input id="hidden" type="hidden" name="_method" value="patch">
+      <input id="user" type="hidden" name="user" value="<%= approval.id %>">
+
+      <p><% @groups.each do |group| %>
+        <input type="radio" name="group" value="<%= group.id %>"
+          id="user<%= approval.id %>_group<%= group.id %>">
+        <label for="user<%= approval.id %>_group<%= group.id %>">
+          <%= group.name %>
+        </label>
+      <% end %></p>
+      <div class="row">
+      <div class="col-6">
+        <button type="submit" class="btn btn-primary btn-block" id="approve">
+          Approve
+        </button>
+      </div>
+
+      <div class="col-6">
+        <button onClick="delete_device()" class="btn btn-danger btn-block"
+          id="reject">
+          Reject
+        </button>
+      </div>
+    </form>
+    <hr class="mb-3">
+  <% end %>
+<% end %>
+
+<script>
+function delete_device() {
+  document.getElementById("hidden").value = "delete"
+  document.getElementById("form").submit()
+}
+</script>

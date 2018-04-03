@@ -34,10 +34,12 @@ describe 'SessionController' do
 
   describe 'Sign Out' do
     it 'signs users out' do
+      admin = Group.create(name: 'admin', privilege: 'admin')
       User.create(username: 'rob',
                   password: 'P@ssword',
                   email: '1@2.co',
-                  name: 'rob')
+                  name: 'rob',
+                  group: admin)
       visit '/'
       fill_in :username, with: 'rob'
       fill_in :password, with: 'P@ssword'

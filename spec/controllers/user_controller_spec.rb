@@ -148,4 +148,51 @@ describe 'UserController' do
       expect(page.body).to include('HTTP 401')
     end
   end
+
+  describe '/users/approvals' do
+    before do
+      @read = Group.create(name: 'read', privilege: 'read')
+    end
+
+    it 'blocks anonymous users' do
+      visit '/users/approval'
+      expect(page.body).to include('HTTP 401')
+    end
+
+    it 'blocks non admins' do
+      User.create(name: 'Rob',
+                  username: 'rob',
+                  email: 'rob@rob.com',
+                  password: 'P@ssword',
+                  group: @read)
+      visit '/'
+      fill_in :username, with: 'rob'
+      fill_in :password, with: 'P@ssword'
+      click_button 'Sign In'
+      visit '/users/approval'
+      expect(page.body).to include('HTTP 401')
+    end
+
+    it 'allows admins to assign groups' do
+      admin = Group.create(name: 'admin', privilege: 'admin')
+      User.create(name: 'Andy',
+                  username: 'andy',
+                  email: 'andy@admin.com',
+                  password: 'P@ssword',
+                  group: admin)
+      rob = User.create(name: 'Rob',
+                        username: 'rob',
+                        email: 'rob@rob.com',
+                        password: 'L3tme!nn')
+      visit '/'
+      fill_in :username, with: 'andy'
+      fill_in :password, with: 'P@ssword'
+      click_button 'Sign In'
+      visit '/users/approval'
+      choose "user#{rob.id}_group#{admin.id}"
+      click_button 'approve'
+      rob.reload
+      expect(rob.group.name).to eql('admin')
+    end
+  end
 end
