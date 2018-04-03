@@ -17,10 +17,14 @@
       style="background-color: #6400aa; height: 64px;">
       <div class="col-4"><img src="/logo.png" alt="logo"></div>
       <% if logged_in? %>
-      <nav class="nav col-4 navbar-dark justify-content-end">
-        <a href="/devices" class="nav-link text-light">Devices</a>
+      <nav class="nav col-5 navbar-dark justify-content-end">
+      <% if admin? %>
         <a href="/groups" class="nav-link text-light">Groups</a>
         <a href="/users" class="nav-link text-light">Users</a>
+      <% end %>
+        <a href="/devices" class="nav-link text-light">Devices</a>
+        <a href="/users/<%= current_user.id %>" class="nav-link text-light">
+          Profile</a>
         <a href="/signout" class="nav-link text-light">Sign Out</a>
       </nav>
       <% else %>
