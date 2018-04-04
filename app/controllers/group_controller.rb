@@ -16,11 +16,15 @@ class GroupController < ApplicationController
     only_admins
     group = Group.new(params[:group])
     group.device_ids = params[:device_ids]
-    group.save
-    params[:user_ids].each do |id|
-      user = User.find(id)
-      user.group_id = group.id
-      user.save(validate: false)
+    if group.save
+      params[:user_ids].each do |id|
+        user = User.find(id)
+        user.group_id = group.id
+        user.save(validate: false)
+      end
+    else
+      errors_to_flash(group.errors.messages)
+      redirect '/groups/new'
     end
     redirect "/groups/#{group.id}"
   end
@@ -44,7 +48,7 @@ class GroupController < ApplicationController
   patch '/groups/:id' do
     only_admins
     group = Group.find(params[:id])
-    group.update(params[:group])
+    errors_to_flash(group.errors.messages) unless group.update(params[:group])
     redirect "/groups/#{group.id}"
   end
 

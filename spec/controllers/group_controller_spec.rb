@@ -155,6 +155,18 @@ describe 'GroupController' do
       expect(page.body).to include('HTTP 401')
     end
 
+    it 'displays errors with invalid parameters' do
+      visit '/'
+      fill_in :username, with: 'andy'
+      fill_in :password, with: 'i@f0ub#zFJbb*XFV0ANn'
+      click_button 'signin'
+      visit "/groups/#{@admin.id}/edit"
+      fill_in :name, with: ''
+      fill_in :privilege, with: 'admin'
+      click_button 'Update'
+      expect(page.body).to include('name: ["can\'t be blank"]')
+    end
+
     it 'lets you edit a group' do
       visit '/'
       fill_in :username, with: 'andy'
@@ -212,6 +224,16 @@ describe 'GroupController' do
       expect(admin.name).to eql('administrator')
       expect(admin.users).to include(@andy)
       expect(admin.devices).to include(@hub)
+    end
+
+    it 'displays errors with invalid parameters' do
+      visit '/groups/new'
+      fill_in :name, with: ''
+      fill_in :privilege, with: 'admin'
+      check "device_#{@hub.id}"
+      check "user_#{@andy.id}"
+      click_button 'create'
+      expect(page.body).to include('name: ["can\'t be blank"]')
     end
 
     it 'blocks non admins' do
