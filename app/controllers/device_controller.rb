@@ -40,7 +40,7 @@ class DeviceController < ApplicationController
   patch '/devices/:id' do
     only_admins
     device = Device.find(params[:id])
-    device.update(params[:device])
+    errors_to_flash(device.errors.messages) unless device.update(params[:device])
     redirect "/devices/#{device.id}"
   end
 

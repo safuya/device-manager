@@ -302,5 +302,14 @@ describe 'DeviceController' do
       visit "/devices/#{@hub.id}/edit"
       expect(page.body).to include('HTTP 401')
     end
+
+    it 'displays errors with invalid parameters' do
+      visit "/devices/#{@hub.id}/edit"
+      fill_in :serial_number, with: ''
+      fill_in :model, with: ''
+      click_button 'Update'
+      expect(page.body).to include('serial_number: ["can\'t be blank"]')
+      expect(page.body).to include('model: ["can\'t be blank"]')
+    end
   end
 end
