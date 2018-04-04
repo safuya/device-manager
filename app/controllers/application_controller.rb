@@ -46,7 +46,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def admin?
-      logged_in? && current_user.group.privilege == 'admin'
+      approved? && current_user.group.privilege == 'admin'
     end
 
     def current_user?

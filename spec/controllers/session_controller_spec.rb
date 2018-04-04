@@ -50,15 +50,6 @@ describe 'SessionController' do
   end
 
   describe 'Apply' do
-    it 'shows the apply page' do
-      visit '/apply'
-      expect(page.body).to include('Username')
-      expect(page.body).to include('Name')
-      expect(page.body).to include('Email')
-      expect(page.body).to include('Password')
-      expect(page.body).to include('Apply')
-    end
-
     it 'adds the user without a group' do
       visit '/apply'
       fill_in :username, with: 'newbie'

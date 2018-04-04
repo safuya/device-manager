@@ -1,7 +1,6 @@
 class SessionController < ApplicationController
   get '/' do
-    flash('Account not approved') unless approved?
-    redirect '/devices' if logged_in?
+    redirect '/devices' if approved?
     erb :'sessions/index'
   end
 
