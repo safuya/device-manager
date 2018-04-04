@@ -208,6 +208,22 @@ describe 'DeviceController' do
       visit '/devices/new'
       expect(page.body).to include('HTTP 401')
     end
+
+    it 'displays errors with invalid parameters' do
+      User.create(username: 'rob',
+                  name: 'Rob',
+                  email: 'rob@rob.com',
+                  password: 'P@ssword',
+                  group: @admin)
+      visit '/'
+      fill_in :username, with: 'rob'
+      fill_in :password, with: 'P@ssword'
+      click_button 'Sign In'
+      visit '/devices/new'
+      click_button 'Add Device'
+      expect(page.body).to include('serial_number: ["can\'t be blank"]')
+      expect(page.body).to include('model: ["can\'t be blank"]')
+    end
   end
 
   describe '/devices/:id/edit' do

@@ -15,6 +15,10 @@ class DeviceController < ApplicationController
     only_admins
     device = Device.new(params[:device])
     device.save
+    unless device.errors.messages.blank?
+      errors_to_flash(device.errors.messages)
+      redirect '/devices/new'
+    end
     redirect "/devices/#{device.id}"
   end
 

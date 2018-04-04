@@ -60,5 +60,11 @@ class ApplicationController < Sinatra::Base
     def not_approved?
       logged_in? && current_user.group.blank?
     end
+
+    def errors_to_flash(error_messages)
+      session[:flash] = error_messages.map do |key, value|
+        "#{key}: #{value}"
+      end.join("\n")
+    end
   end
 end

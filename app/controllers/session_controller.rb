@@ -29,9 +29,7 @@ class SessionController < ApplicationController
     if user.save
       session[:user_id] = user.id
     else
-      session[:flash] = user.errors.messages.map do |key, value|
-        "#{key}: #{value}"
-      end.join("\n")
+      errors_to_flash(user.errors.messages)
     end
     redirect '/'
   end
