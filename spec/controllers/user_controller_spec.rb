@@ -147,6 +147,18 @@ describe 'UserController' do
       visit "/users/#{@admin.id}/edit"
       expect(page.body).to include('HTTP 401')
     end
+
+    it 'does not update the profile without a valid current password' do
+      visit "/users/#{@admin.id}/edit"
+      fill_in :username, with: 'andy'
+      fill_in :name, with: 'Andrew'
+      fill_in :email, with: 'andrew@admin.com'
+      fill_in :current_password, with: 'hehehe'
+      fill_in :new_password, with: 'N3wP@ssw0rd'
+      choose "group_#{@write.id}"
+      click_button 'update'
+      expect(page.body).to include('Failed to update profile')
+    end
   end
 
   describe '/users/approvals' do

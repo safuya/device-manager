@@ -33,11 +33,10 @@ class UserController < ApplicationController
   patch '/users/:id' do
     only_current_user
     user = User.find(params[:id])
-    if user && user.authenticate(params[:current_password])
-      user.update(params[:user])
-      flash('Profile updated')
+    if user && user.authenticate(params[:current_password]) && user.update(params[:user])
+      session[:flash] = 'Profile updated'
     else
-      flash('Failed to update profile')
+      session[:flash] = 'Failed to update profile'
     end
     redirect "/users/#{user.id}"
   end
