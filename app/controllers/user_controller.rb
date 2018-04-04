@@ -53,9 +53,9 @@ class UserController < ApplicationController
     user = User.find(params[:id])
     if user
       user.delete
-      flash('User deleted')
+      session[:flash] = 'User deleted'
     else
-      flash('User not found')
+      session[:flash] = 'User not found'
     end
     redirect '/users'
   end
