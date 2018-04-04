@@ -191,6 +191,7 @@ describe 'UserController' do
       visit '/users/approval'
       choose "user#{rob.id}_group#{admin.id}"
       click_button 'approve'
+      expect(page.body).to include('User validated')
       rob.reload
       expect(rob.group.name).to eql('admin')
     end

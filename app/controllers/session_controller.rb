@@ -1,12 +1,17 @@
 class SessionController < ApplicationController
   get '/' do
+    flash('Account not approved') unless approved?
     redirect '/devices' if logged_in?
     erb :'sessions/index'
   end
 
   post '/login' do
     user = User.find_by(username: params[:username])
-    session[:user_id] = user.id if user && user.authenticate(params[:password])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+    else
+      flash('Failed to log in')
+    end
     redirect '/'
   end
 

@@ -13,9 +13,14 @@ class UserController < ApplicationController
   end
 
   patch '/users/approval' do
-    user = User.find(params[:user])
-    user.group_id = params[:group]
-    user.save(validate: false)
+    if params[:group].empty?
+      flash('User needs to be added to a group')
+    else
+      user = User.find(params[:user])
+      user.group_id = params[:group]
+      user.save(validate: false)
+      flash('User validated')
+    end
     redirect '/users/approval'
   end
 
@@ -30,6 +35,9 @@ class UserController < ApplicationController
     user = User.find(params[:id])
     if user && user.authenticate(params[:current_password])
       user.update(params[:user])
+      flash('Profile updated')
+    else
+      flash('Failed to update profile')
     end
     redirect "/users/#{user.id}"
   end
@@ -44,7 +52,12 @@ class UserController < ApplicationController
   delete '/users/:id' do
     only_current_user_or_admin
     user = User.find(params[:id])
-    user.delete
+    if user
+      user.delete
+      flash('User deleted')
+    else
+      flash('User not found')
+    end
     redirect '/users'
   end
 end
