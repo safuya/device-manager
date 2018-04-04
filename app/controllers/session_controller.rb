@@ -25,8 +25,14 @@ class SessionController < ApplicationController
   end
 
   post '/apply' do
-    user = User.create(params[:user])
-    session[:user_id] = user.id
+    user = User.new(params[:user])
+    if user.save
+      session[:user_id] = user.id
+    else
+      session[:flash] = user.errors.messages.map do |key, value|
+        "#{key}: #{value}"
+      end.join("\n")
+    end
     redirect '/'
   end
 end

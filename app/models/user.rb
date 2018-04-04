@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
     complexity += 1 if password =~ /\d/
     complexity += 1 if password =~ /[$@&!%*^#]/
 
-    errors.add(:password, 'is not complex') if complexity < 3
+    errors.add(
+      :password,
+      'is not complex (3 of 4 digit, symbol, upper, lower)'
+    ) if complexity < 3
   end
 end

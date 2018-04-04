@@ -64,5 +64,18 @@ describe 'SessionController' do
       expect(jim.name).to eql('Jim')
       expect(jim.group).to eql(nil)
     end
+
+    it 'displays errors with invalid parameters' do
+      visit '/apply'
+      fill_in :username, with: 'newbie'
+      fill_in :password, with: 'invalid'
+      click_button 'Apply'
+      expect(page.body).to include('name: ["can\'t be blank"]')
+      expect(page.body).to include('email: ["can\'t be blank"]')
+      expect(page.body).to include('is too short (minimum is 8 characters)')
+      expect(page.body).to include(
+        'is not complex (3 of 4 digit, symbol, upper, lower)'
+      )
+    end
   end
 end
