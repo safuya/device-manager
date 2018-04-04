@@ -29,6 +29,7 @@ describe 'SessionController' do
       fill_in :password, with: 'letmein'
       click_button 'Sign In'
       expect(page.body).to include('Sign In')
+      expect(page.body).to include('Failed to log in')
     end
   end
 
@@ -57,6 +58,8 @@ describe 'SessionController' do
       fill_in :email, with: 'jim@jim.com'
       fill_in :password, with: 'S@cur3pass'
       click_button 'Apply'
+      expect(page.body).to include('Sign Out')
+      expect(page.body).to include('You require approval')
       jim = User.find_by(username: 'newbie')
       expect(jim.name).to eql('Jim')
       expect(jim.group).to eql(nil)

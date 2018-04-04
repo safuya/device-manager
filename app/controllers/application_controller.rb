@@ -56,5 +56,9 @@ class ApplicationController < Sinatra::Base
     def approved?
       logged_in? && !current_user.group.blank?
     end
+
+    def not_approved?
+      logged_in? && current_user.group.blank?
+    end
   end
 end

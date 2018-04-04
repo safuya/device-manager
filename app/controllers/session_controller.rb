@@ -1,5 +1,6 @@
 class SessionController < ApplicationController
   get '/' do
+    session[:flash] = 'You require approval' if not_approved?
     redirect '/devices' if approved?
     erb :'sessions/index'
   end
@@ -9,7 +10,7 @@ class SessionController < ApplicationController
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
     else
-      flash('Failed to log in')
+      session[:flash] = 'Failed to log in'
     end
     redirect '/'
   end
