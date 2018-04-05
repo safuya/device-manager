@@ -52,6 +52,25 @@ A device has and belongs to many groups and has many users through groups.
 A serial number and model are required. The serial number must be unique.
 
 ### Groups
+
 A group has many users. A group has and belongs to many devices.
 
 A name is required.
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/safuya/device-manager. This project is intended to be a safe,
+welcoming space for collaboration, and contributors are expected to adhere to
+the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
+## License
+
+The code is available as open source under the terms of the
+[MIT License](https://opensource.org/licenses/MIT).
+
+## Code of Conduct
+
+Everyone interacting in the Device Manager project’s codebases, issue trackers,
+chat rooms and mailing lists is expected to follow the
+[code of conduct](https://github.com/safuya/device-manager/blob/master/CODE_OF_CONDUCT.md).
