@@ -7,6 +7,7 @@ gem "require_all", "~> 2.0"
 gem "sinatra-activerecord", "~> 2.0", :require => 'sinatra/activerecord'
 gem "bcrypt", "~> 3.1"
 gem "sqlite3", "~> 1.3"
+gem "sysrandom", "~> 1.0"
 
 group :development do
   gem "shotgun", "~> 0.9.2"
