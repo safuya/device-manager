@@ -128,13 +128,11 @@ describe 'UserController' do
       fill_in :email, with: 'andrew@admin.com'
       fill_in :current_password, with: 'i@f0ub#zFJbb*XFV0ANn'
       fill_in :new_password, with: 'N3wP@ssw0rd'
-      choose "group_#{@write.id}"
       click_button 'update'
       @admin.reload
       expect(@admin.name).to eql('Andrew')
       expect(@admin.email).to eql('andrew@admin.com')
       expect(@admin.authenticate('N3wP@ssw0rd')).to be_truthy
-      expect(@admin.group).to eql(@write)
     end
 
     it 'does not let anyone edit anyone elses profile' do
@@ -155,7 +153,6 @@ describe 'UserController' do
       fill_in :email, with: 'andrew@admin.com'
       fill_in :current_password, with: 'hehehe'
       fill_in :new_password, with: 'N3wP@ssw0rd'
-      choose "group_#{@write.id}"
       click_button 'update'
       expect(page.body).to include('Failed to update profile')
     end
@@ -167,7 +164,6 @@ describe 'UserController' do
       fill_in :email, with: 'andrew@admin.com'
       fill_in :current_password, with: 'hehehe'
       fill_in :new_password, with: 'N3wP@ssw0rd'
-      choose "group_#{@write.id}"
       click_button 'update'
       expect(page.body).to include('Failed to update profile')
     end

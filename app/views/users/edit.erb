@@ -40,16 +40,6 @@
       </div>
     </div>
 
-    <h4>Group</h4>
-    <ul class="list-group d-flex justify-content-between mb-3">
-    <% @groups.each do |group| %>
-      <li class="list-group-item lh-condensed">
-        <input type="radio" name="user[group_id]" id="group_<%= group.id %>"
-          value="<%= group.id %>" <%= 'checked' if @user.group == group %>>
-        <label for="group_<%= group.id %>"><%= group.name %></label>
-      </li>
-    <% end %></ul>
-
     <div class="row">
       <div class="col-6">
         <button type="submit" class="btn btn-primary btn-block" id="update">
