@@ -1,5 +1,9 @@
 <h1>Devices</h1>
 
+<% if admin? %>
+  <a class="btn btn-primary" href="/devices/new" role="button">Create</a>
+<% end %>
+
 <table class="table table-hover">
   <thead>
     <tr>

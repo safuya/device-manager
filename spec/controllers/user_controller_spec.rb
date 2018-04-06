@@ -169,7 +169,7 @@ describe 'UserController' do
     end
   end
 
-  describe '/users/approvals' do
+  describe '/users/approval' do
     before do
       @read = Group.create(name: 'read', privilege: 'read')
     end
