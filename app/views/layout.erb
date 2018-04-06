@@ -21,7 +21,6 @@
       <% if admin? %>
         <a href="/groups" class="nav-link text-light">Groups</a>
         <a href="/users" class="nav-link text-light">Users</a>
-        <a href="/users/approval" class="nav-link text-light">Approvals</a>
       <% end %>
         <a href="/devices" class="nav-link text-light">Devices</a>
         <a href="/users/<%= current_user.id %>" class="nav-link text-light">
@@ -34,9 +33,14 @@
       </nav>
       <% end %>
     </header>
+    <% if admin? && approvals? %>
+    <div class="alert alert-warning mb-1" role="alert">
+      <a href="/users/approval">Users awaiting approval</a>
+    </div>
+    <% end %>
     <% flash_message = flash %>
     <% if flash_message %>
-    <div class="alert alert-primary" role="alert">
+    <div class="alert alert-primary mb-1" role="alert">
       <%= flash_message %>
     </div>
     <% end %>

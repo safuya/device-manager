@@ -66,5 +66,9 @@ class ApplicationController < Sinatra::Base
         "#{key}: #{value}"
       end.join("\n")
     end
+
+    def approvals?
+      User.where(group_id: nil).size > 1
+    end
   end
 end
