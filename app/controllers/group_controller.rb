@@ -40,6 +40,8 @@ class GroupController < ApplicationController
   patch '/groups/:id' do
     only_admins
     group = Group.find(params[:id])
+    params[:group][:user_ids] ||= []
+    params[:group][:device_ids] ||= []
     group.update(params[:group])
     redirect "/groups/#{group.id}" unless group.errors.any?
 
