@@ -16,16 +16,21 @@ class GroupController < ApplicationController
     only_admins
     group = Group.new(params[:group])
     group.device_ids = params[:device_ids]
-    if group.save
+    group.save
+
+    if group.errors.any?
+      errors_to_flash(group.errors.messages)
+      redirect '/groups/new'
+    end
+
+    if params.key?(:user_ids)
       params[:user_ids].each do |id|
         user = User.find(id)
         user.group_id = group.id
         user.save(validate: false)
       end
-    else
-      errors_to_flash(group.errors.messages)
-      redirect '/groups/new'
     end
+
     redirect "/groups/#{group.id}"
   end
 
