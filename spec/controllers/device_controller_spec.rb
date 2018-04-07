@@ -185,9 +185,11 @@ describe 'DeviceController' do
       fill_in :model, with: 'HH6A'
       fill_in :last_contact, with: '180203T11:24'
       fill_in :last_activation, with: '160203T10:09'
+      check "group_#{@write.id}"
       click_button 'Add Device'
-      expect(Device.find_by(serial_number: '+065432+0123456789').model)
-        .to eql('HH6A')
+      hub = Device.find_by(serial_number: '+065432+0123456789')
+      expect(hub.model).to eql('HH6A')
+      expect(hub.groups).to include(@write)
     end
 
     it 'blocks anonymous users' do

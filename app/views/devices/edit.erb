@@ -1,75 +1,70 @@
-<section class="row">
+<h1>Edit</h1>
 
-  <div class="col-8">
-  <h1>Edit</h1>
+<form action="/devices/<%= @device.id %>" method="post" id="form">
+  <input id="hidden" type="hidden" name="_method" value="patch">
 
-  <form action="/devices/<%= @device.id %>" method="post" id="form">
-    <input id="hidden" type="hidden" name="_method" value="patch">
-
-    <div class="row mb-3">
-      <div class="col-6">
-        <label for="serial_number">Serial Number</label>
-        <input type="text" name="device[serial_number]" id="serial_number"
-          value="<%= @device.serial_number %>" class="form-control">
-      </div>
-
-      <div class="col-6">
-        <label for="model">Model</label>
-        <input type="text" name="device[model]" id="model"
-          value="<%= @device.model %>" class="form-control">
-      </div>
+  <div class="row mb-5">
+    <div class="col-4">
+      <label for="serial_number">Serial Number</label>
+      <input type="text" name="device[serial_number]" id="serial_number"
+        value="<%= @device.serial_number %>" class="form-control">
     </div>
 
-    <div class="row mb-3">
-      <div class="col-6">
-        <label for="firmware_version">Firmware Version</label>
-        <input type="text" name="device[firmware_version]" id="firmware_version"
-          class="form-control">
-      </div>
+    <div class="col-4">
+      <label for="model">Model</label>
+      <input type="text" name="device[model]" id="model"
+        value="<%= @device.model %>" class="form-control">
     </div>
 
-    <div class="row mb-3">
-      <div class="col-6">
-        <label for="last_contact">Last Contact</label>
-        <input type="datetime-local" name="device[last_contact]" id="last_contact"
-          value="<%= @device.last_contact.to_s %>">
-      </div>
+    <div class="col-4">
+      <label for="firmware_version">Firmware Version</label>
+      <input type="text" name="device[firmware_version]" id="firmware_version"
+        class="form-control">
+    </div>
+  </div>
 
-      <div class="col-6">
-        <label for="last_activation">Last Activation</label>
-        <input type="datetime-local" name="device[last_activation]"
-          id="last_activation" value="<%= @device.last_activation.to_s %>">
-      </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <hr class="mb-3">
+      <label for="last_contact">Last Contact</label>
+      <input type="datetime-local" name="device[last_contact]" id="last_contact"
+        value="<%= @device.last_contact.to_s %>" class="mb-3">
+      <br>
+      <label for="last_activation">Last Activation</label>
+      <input type="datetime-local" name="device[last_activation]"
+        id="last_activation" value="<%= @device.last_activation.to_s %>">
+      <hr class="mb-3">
     </div>
 
-    <h4>Groups</h4>
-    <ul class="list-group d-flex justify-content-between mb-3">
-    <% @groups.each do |group| %>
-      <li class="list-group-item lh-condensed">
-        <input type="checkbox" name="device[group_ids][]" id="group_<%= group.id %>"
-          value="<%= group.id %>" <%= 'checked' if @device.groups.include?(group) %>>
-        <label for="group_<%= group.id %>"><%= group.name %></label>
-      </li>
-    <% end %></ul>
+    <div class="col-6">
+      <h4>Groups</h4>
+      <ul class="list-group d-flex justify-content-between mb-3">
+      <% @groups.each do |group| %>
+        <li class="list-group-item lh-condensed">
+          <input type="checkbox" name="device[group_ids][]" id="group_<%= group.id %>"
+            value="<%= group.id %>" <%= 'checked' if @device.groups.include?(group) %>>
+          <label for="group_<%= group.id %>"><%= group.name %></label>
+        </li>
+      <% end %></ul>
+    </div>
+  </div>
 
-    <div class="row">
-      <div class="col-6">
-        <button type="submit" class="btn btn-primary btn-block" id="update">
-          Update
-        </button>
-      </div>
-
-      <div class="col-6">
-        <button onClick="delete_device()" class="btn btn-primary btn-block"
-          id="delete">
-          Delete
-        </button>
-      </div>
+  <div class="row">
+    <div class="col-6">
+      <button type="submit" class="btn btn-primary btn-block" id="update">
+        Update
+      </button>
     </div>
 
-  </form>
+    <div class="col-6">
+      <button onClick="delete_device()" class="btn btn-danger btn-block"
+        id="delete">
+        Delete
+      </button>
+    </div>
+  </div>
 
-</section>
+</form>
 
 <script>
 function delete_device() {
