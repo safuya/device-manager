@@ -1,5 +1,6 @@
 <h1>BT TV Device Manager</h1>
 
+<% unless logged_in? %>
 <form class="form-signin" action="/login" method="post">
 <div class="row justify-content-center mt-1">
   <label for="username" class="sr-only">Username</label>
@@ -25,4 +26,4 @@
   </p>
 </div>
 </form>
-
+<% end %>
