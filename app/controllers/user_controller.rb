@@ -16,8 +16,11 @@ class UserController < ApplicationController
     if params.key?(:group)
       user = User.find(params[:user])
       user.group_id = params[:group]
-      user.save(validate: false)
-      session[:flash] = 'User validated'
+      if user.save
+        session[:flash] = 'User validated'
+      else
+        errors_to_flash(user.errors.messages)
+      end
     else
       session[:flash] = 'User needs to be added to a group for approval'
     end
