@@ -4,8 +4,8 @@
   No-one is awaiting approval
 <% else %>
   <% @approvals.each do |approval| %>
-    <form action="/users/approval" method="post">
-      <input id="hidden" type="hidden" name="_method" value="patch">
+    <form action="/users/approval" method="post" id="form_<%= approval.id %>">
+      <input id="hidden_<%= approval.id %>" type="hidden" name="_method" value="patch">
       <input id="user_<%= approval.id %>" type="hidden" name="user" value="<%= approval.id %>">
       <div class="row">
         <div class="col-6">
@@ -40,14 +40,14 @@
 
       <div class="row mb-3">
         <div class="col-6">
-          <button type="submit" class="btn btn-primary btn-block" id="approve">
+          <button type="submit" class="btn btn-primary btn-block" id="approve<%= approval.id %>">
             Approve
           </button>
         </div>
 
         <div class="col-6">
-          <button onClick="delete_device()" class="btn btn-danger btn-block"
-            id="reject">
+          <button onClick="delete_device(<%= approval.id %>)" class="btn btn-danger btn-block"
+            id="reject<%= approval.id %>">
             Reject
           </button>
         </div>
@@ -58,8 +58,9 @@
 <% end %>
 
 <script>
-function delete_device() {
-  document.getElementById("hidden").value = "delete"
-  document.getElementById("form").submit()
+function delete_device(id) {
+  document.getElementById(`form_${id}`).action = `/users/${id}`
+  document.getElementById(`hidden_${id}`).value = "delete"
+  document.getElementById(`form_${id}`).submit()
 }
 </script>
