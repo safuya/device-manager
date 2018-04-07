@@ -2,7 +2,7 @@
 ## Summary
 This website allows you to manage devices.
 
-## Running the Server
+## Running the Development Server
 You must first set a session secret in your environment.
 ```
 export session_secret='my_really_long_random_secret'
@@ -29,7 +29,52 @@ rspec
 ```
 
 ## Installing in Production
-Work in progress
+Set up an AWS account. You then need to
+[install](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
+the AWS CLI.
+
+Next, [install](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html)
+the Elastic Beanstalk CLI.
+
+Set up and record your session secret.
+
+```
+export session_secret=$(ruby -e "require 'sysrandom/securerandom'; puts SecureRandom.hex(64)")
+echo $session_secret
+```
+
+Configure your production database. Edit the user in the seed if you want to
+change the default user.
+
+```
+rake db:migrate SINATRA_ENV=production
+rake db:seed
+git add --all
+git commit -m "deploy to production"
+```
+
+Initialize elastic beanstalk and create your environment. For the environment choose
+Ruby 2.3 (Passenger Standalone).
+
+```
+eb init
+eb create production -s --envvars SINATRA_ENV=production,session_secret=$session_secret
+```
+
+Visit your newly deployed website and change the username and password of the
+initial user.
+```
+eb open
+```
+
+Future deployments can be carried out with the deploy command. Database
+migrations for production must be carried out with your production session
+secret. Unless you move your database to a separate EC2 instance, the database
+will also be emptied on each deployment.
+```
+eb deploy
+```
 
 ## Using the Application
 ### Users
