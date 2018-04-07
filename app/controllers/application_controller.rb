@@ -9,10 +9,6 @@ class ApplicationController < Sinatra::Base
   end
 
   helpers do
-    def flash=(message)
-      session[:flash] = message
-    end
-
     def flash
       session.delete(:flash)
     end
