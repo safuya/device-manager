@@ -68,7 +68,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def approvals?
-      User.where(group_id: nil).size > 1
+      User.where(group_id: nil).empty?
     end
   end
 end
