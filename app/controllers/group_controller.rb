@@ -53,7 +53,24 @@ class GroupController < ApplicationController
   patch '/groups/:id' do
     only_admins
     group = Group.find(params[:id])
-    errors_to_flash(group.errors.messages) unless group.update(params[:group])
+    group.update(params[:group])
+
+    if group.errors.any?
+      errors_to_flash(group.errors.messages)
+      redirect "/groups/#{params[:group][:id]}/edit"
+    end
+
+    if params[:user_ids]
+      params[:user_ids].each do |id|
+        user = User.find(id)
+        user.group_id = group.id
+        user.save(validate: false)
+      end
+    else
+      group.user_ids = []
+      group.save
+    end
+
     redirect "/groups/#{group.id}"
   end
 

@@ -26,7 +26,7 @@
         <ul class="list-group d-flex justify-content-between mb-3">
         <% @users.each do |user| %>
           <li class="list-group-item lh-condensed">
-            <input type="checkbox" name="group[user_ids][]" id="user_<%= user.id %>"
+            <input type="checkbox" name="user_ids[]" id="user_<%= user.id %>"
               value="<%= user.id %>" <%= 'checked' if @group.users.include?(user) %>>
             <label for="user_<%= user.id %>"><%= user.name %></label>
           </li>
