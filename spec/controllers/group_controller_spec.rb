@@ -163,7 +163,7 @@ describe 'GroupController' do
       visit "/groups/#{@admin.id}/edit"
       fill_in :name, with: ''
       fill_in :privilege, with: 'admin'
-      click_button 'Update'
+      click_button 'update'
       expect(page.body).to include('name: ["can\'t be blank"]')
     end
 

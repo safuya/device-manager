@@ -14,24 +14,11 @@ class GroupController < ApplicationController
 
   post '/groups' do
     only_admins
-    group = Group.new(params[:group])
-    group.device_ids = params[:device_ids]
-    group.save
+    group = Group.create(params[:group])
+    redirect "/groups/#{group.id}" unless group.errors.any?
 
-    if group.errors.any?
-      errors_to_flash(group.errors.messages)
-      redirect '/groups/new'
-    end
-
-    if params.key?(:user_ids)
-      params[:user_ids].each do |id|
-        user = User.find(id)
-        user.group_id = group.id
-        user.save(validate: false)
-      end
-    end
-
-    redirect "/groups/#{group.id}"
+    errors_to_flash(group.errors.messages)
+    redirect '/groups/new'
   end
 
   get '/groups/:id' do
@@ -54,24 +41,10 @@ class GroupController < ApplicationController
     only_admins
     group = Group.find(params[:id])
     group.update(params[:group])
+    redirect "/groups/#{group.id}" unless group.errors.any?
 
-    if group.errors.any?
-      errors_to_flash(group.errors.messages)
-      redirect "/groups/#{params[:group][:id]}/edit"
-    end
-
-    if params[:user_ids]
-      params[:user_ids].each do |id|
-        user = User.find(id)
-        user.group_id = group.id
-        user.save(validate: false)
-      end
-    else
-      group.user_ids = []
-      group.save
-    end
-
-    redirect "/groups/#{group.id}"
+    errors_to_flash(group.errors.messages)
+    redirect "/groups/#{params[:id]}/edit"
   end
 
   delete '/groups/:id' do
