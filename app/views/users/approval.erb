@@ -4,30 +4,53 @@
   No-one is awaiting approval
 <% else %>
   <% @approvals.each do |approval| %>
-    <p><%= approval.name %> - <%= approval.username %> - <%= approval.email %></p>
     <form action="/users/approval" method="post">
       <input id="hidden" type="hidden" name="_method" value="patch">
-      <input id="user" type="hidden" name="user" value="<%= approval.id %>">
-
-      <p><% @groups.each do |group| %>
-        <input type="radio" name="group" value="<%= group.id %>"
-          id="user<%= approval.id %>_group<%= group.id %>">
-        <label for="user<%= approval.id %>_group<%= group.id %>">
-          <%= group.name %>
-        </label>
-      <% end %></p>
+      <input id="user_<%= approval.id %>" type="hidden" name="user" value="<%= approval.id %>">
       <div class="row">
-      <div class="col-6">
-        <button type="submit" class="btn btn-primary btn-block" id="approve">
-          Approve
-        </button>
+        <div class="col-6">
+          <h3>User</h3>
+          <ul class="list-group d-flex justify-content-between mb-3">
+            <li class="list-group-item lh-condensed">
+              <div><h5>Name</h5></div>
+              <span><%= approval.name %></span>
+            </li>
+            <li class="list-group-item lh-condensed">
+              <div><h5>Username</h5></div>
+              <span><%= approval.username %></span>
+            </li>
+            <li class="list-group-item lh-condensed">
+              <div><h5>Email</h5></div>
+              <span><%= approval.email %></span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-6">
+          <h3>Group</h3>
+          <% @groups.each do |group| %>
+            <input type="radio" name="group" value="<%= group.id %>"
+              id="user<%= approval.id %>_group<%= group.id %>">
+            <label for="user<%= approval.id %>_group<%= group.id %>">
+              <%= group.name %>
+            </label>
+          <% end %>
+        </div>
       </div>
 
-      <div class="col-6">
-        <button onClick="delete_device()" class="btn btn-danger btn-block"
-          id="reject">
-          Reject
-        </button>
+      <div class="row mb-3">
+        <div class="col-6">
+          <button type="submit" class="btn btn-primary btn-block" id="approve">
+            Approve
+          </button>
+        </div>
+
+        <div class="col-6">
+          <button onClick="delete_device()" class="btn btn-danger btn-block"
+            id="reject">
+            Reject
+          </button>
+        </div>
       </div>
     </form>
     <hr class="mb-3">

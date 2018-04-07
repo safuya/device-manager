@@ -13,13 +13,13 @@ class UserController < ApplicationController
   end
 
   patch '/users/approval' do
-    if params[:group].empty?
-      flash('User needs to be added to a group')
-    else
+    if params.key?(:group)
       user = User.find(params[:user])
       user.group_id = params[:group]
       user.save(validate: false)
-      flash('User validated')
+      session[:flash] = 'User validated'
+    else
+      session[:flash] = 'User needs to be added to a group for approval'
     end
     redirect '/users/approval'
   end

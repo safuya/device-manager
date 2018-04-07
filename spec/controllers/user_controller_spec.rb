@@ -215,5 +215,29 @@ describe 'UserController' do
       rob.reload
       expect(rob.group.name).to eql('admin')
     end
+
+    it 'stops a user being approved without being added to a group' do
+      admin = Group.create(name: 'admin', privilege:'admin')
+      User.create(name: 'Andy',
+                  username: 'andy',
+                  email: 'andy@admin.com',
+                  password: 'P@ssword',
+                  group: admin)
+      rob = User.create(name: 'Rob',
+                        username: 'rob',
+                        email: 'rob@rob.com',
+                        password: 'L3tme!nn')
+      visit '/'
+      fill_in :username, with: 'andy'
+      fill_in :password, with: 'P@ssword'
+      click_button 'Sign In'
+      visit '/users/approval'
+      click_button 'approve'
+      expect(page.body).to include(
+        'User needs to be added to a group for approval'
+      )
+      rob.reload
+      expect(rob.group).to eql(nil)
+    end
   end
 end
