@@ -40,14 +40,14 @@
 
       <div class="row mb-3">
         <div class="col-6">
-          <button type="submit" class="btn btn-primary btn-block" id="approve<%= approval.id %>">
+          <button type="submit" class="btn btn-primary btn-block" id="approve_<%= approval.id %>">
             Approve
           </button>
         </div>
 
         <div class="col-6">
           <button onClick="delete_device(<%= approval.id %>)" class="btn btn-danger btn-block"
-            id="reject<%= approval.id %>">
+            id="reject_<%= approval.id %>">
             Reject
           </button>
         </div>

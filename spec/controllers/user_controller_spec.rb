@@ -210,7 +210,7 @@ describe 'UserController' do
       click_button 'Sign In'
       visit '/users/approval'
       choose "user#{rob.id}_group#{admin.id}"
-      click_button 'approve'
+      click_button "approve_#{rob.id}"
       expect(page.body).to include('User validated')
       rob.reload
       expect(rob.group.name).to eql('admin')
@@ -232,7 +232,7 @@ describe 'UserController' do
       fill_in :password, with: 'P@ssword'
       click_button 'Sign In'
       visit '/users/approval'
-      click_button 'approve'
+      click_button "approve_#{rob.id}"
       expect(page.body).to include(
         'User needs to be added to a group for approval'
       )

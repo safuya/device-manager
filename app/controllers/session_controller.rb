@@ -30,6 +30,7 @@ class SessionController < ApplicationController
       session[:user_id] = user.id
     else
       errors_to_flash(user.errors.messages)
+      session[:flash] = 'Account not created.' + session[:flash]
     end
     redirect '/'
   end
