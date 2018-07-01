@@ -1,6 +1,6 @@
 # Device Manager
 ## Summary
-This website allows you to manage devices such as Home Hubs or Set Top Boxes. A demo can be seen [here](https://www.youtube.com/watch?v=PCaoD6eLrQQ&t=4s)
+This website allows you to manage devices such as Home Hubs or Set Top Boxes. A demo can be seen [here](https://www.youtube.com/watch?v=PCaoD6eLrQQ&t=4s). A blog post on the development process for this website can be found [here](http://safuya.info/device_manager).
 
 ## Running the Development Server
 You must first set a session secret in your environment.
